@@ -1,0 +1,29 @@
+{% extends "base2.html" %}
+
+{% block content %}
+  <h1>Text Indic Mode</h1>
+  <hr>
+  <h2>Select Language</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div>
+      <label for="language">Language:</label>
+      <select name="language" id="language">
+        <option value="hindi">Hindi</option>
+        <option value="tamil">Tamil</option>
+        <option value="marathi">Marathi</option>
+      </select>
+    </div>
+    <button type="submit">Select</button>
+  </form>
+  <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Add Product</button>
+  </form>
+  <img src="{{ product.image.url }}" alt="Product Image">
+  <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary" class>Back</a>
+
+
+
+{% endblock content %}

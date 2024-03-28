@@ -1,0 +1,276 @@
+{% extends "base4.html" %}
+
+{% block content %}
+  <h1>Voice Indic Mode</h1>
+  <hr>
+  <h2>Select Language</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+      <label for="language">Language:</label>
+      <select name="language" id="language" onchange="changeLanguage()">
+        <option value="hindi">Select</option>
+        <option value="tamil">Tamil</option>
+        <option value="marathi">Marathi</option>
+        <option value="hindi">Hindi</option>
+        
+      </select>
+      
+    </div>
+
+    <div id="sku_id_section">
+      <label for="id_sku_id" id="sku_id_label">SKU ID:</label>
+      <input type="text" id="id_sku_id" name="sku_id">
+    </div>
+    <div>
+        <label for="id_product_name" id="product_name_label">Product Name:</label>
+        <input type="text" id="id_product_name" name="product_name">
+        
+    </div>
+    <div>
+        <label for="id_count" id="count_label">Count:</label>
+        <input type="number" id="id_count" name="count">
+        
+    </div>
+    <div>
+        <label for="id_price" id='price_label'>Price:</label>
+        <input type="number" id="id_price" name="price" step="0.01">
+        
+    </div>
+    <div>
+        <label for="id_image" id="image_label">Image:</label>
+        <input type="file" id="id_image" name="image" accept="image/*">
+        
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    function changeLanguage() {
+      var language = document.getElementById('language').value;
+      var skuIdLabel = document.getElementById('sku_id_label');
+      var skuIdInput = document.getElementById('id_sku_id');
+      var productNameLabel = document.getElementById('product_name_label');
+      var productNameInput = document.getElementById('id_product_name');
+      var countLabel = document.getElementById('count_label');
+      var countInput = document.getElementById('id_count');
+      var priceLabel = document.getElementById('price_label');
+      var priceInput = document.getElementById('id_price');
+      var imageLabel = document.getElementById('image_label');
+      var imageInput = document.getElementById('id_image');
+
+      if (language === "hindi") {
+        skuIdLabel.innerText = "एसकेयू आईडी:";
+        var readAloudButton = document.createElement('button');
+        readAloudButton.innerText = "Read Aloud";
+        readAloudButton.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud('एसकेयू आईडी');
+        });
+        skuIdInput.parentNode.appendChild(readAloudButton);
+        
+        productNameLabel.innerText = "उत्पाद का नाम:";
+        var readAloud1Button = document.createElement('button');
+        readAloud1Button.innerText = "Read Aloud";
+        readAloud1Button.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud1('उत्पाद का नाम');
+        });
+        productNameInput.parentNode.appendChild(readAloud1Button);
+
+        countLabel.innerText = "गणना:";
+        var readAloud2Button = document.createElement('button');
+        readAloud2Button.innerText = "Read Aloud";
+        readAloud2Button.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud2('गणना');
+        });
+        countInput.parentNode.appendChild(readAloud2Button);
+
+        priceLabel.innerText = "मूल्य:";
+        var readAloud3Button = document.createElement('button');
+        readAloud3Button.innerText = "Read Aloud";
+        readAloud3Button.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud3('मूल्य');
+        });
+        priceInput.parentNode.appendChild(readAloud3Button);
+
+        imageLabel.innerText = "छवि:";
+        var readAloud4Button = document.createElement('button');
+        readAloud4Button.innerText = "Read Aloud";
+        readAloud4Button.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud4('छवि');
+        });
+        imageInput.parentNode.appendChild(readAloud4Button);
+        
+        
+        
+        
+      } else if (language === "tamil") {
+        
+
+        skuIdLabel.innerText = "எஸ்.கே.யு ஐடி:";
+        var readAloudButton = document.createElement('button');
+        readAloudButton.innerText = "Read Aloud";
+        readAloudButton.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud('எஸ்.கே.யு ஐடி');
+        });
+        skuIdInput.parentNode.appendChild(readAloudButton);
+
+        productNameLabel.innerText = "பொருள் பெயர்:";
+        var readAloudButton = document.createElement('button');
+        readAloudButton.innerText = "Read Aloud";
+        readAloudButton.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud('பொருள் பெயர்');
+        });
+        productNameInput.parentNode.appendChild(readAloudButton);
+
+        countLabel.innerText = "எண்ணிக்கை:";
+        var readAloud2Button = document.createElement('button');
+        readAloud2Button.innerText = "Read Aloud";
+        readAloud2Button.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud2('எண்ணிக்கை');
+        });
+        countInput.parentNode.appendChild(readAloud2Button);
+
+        priceLabel.innerText = "விலை:";
+        var readAloud3Button = document.createElement('button');
+        readAloud3Button.innerText = "Read Aloud";
+        readAloud3Button.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud3('விலை');
+        });
+        priceInput.parentNode.appendChild(readAloud3Button);
+
+        imageLabel.innerText = "படம்:";
+        var readAloud4Button = document.createElement('button');
+        readAloud4Button.innerText = "Read Aloud";
+        readAloud4Button.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud4('படம்');
+        });
+        imageInput.parentNode.appendChild(readAloud4Button);
+        
+      } else if (language === "marathi") {
+        skuIdLabel.innerText = "";
+        productNameLabel.innerText = "";
+        countLabel.innerText = "";
+        priceLabel.innerText = "";
+        imageLabel.innerText = "";
+
+        skuIdLabel.innerText = "एसकेयू आयडी:";
+        var readAloudButton = document.createElement('button');
+        readAloudButton.innerText = "Read Aloud";
+        readAloudButton.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud('एसकेयू आयडी');
+        });
+        skuIdInput.parentNode.appendChild(readAloudButton);
+
+        productNameLabel.innerText = "उत्पादनाम:";
+        var readAloudButton = document.createElement('button');
+        readAloudButton.innerText = "Read Aloud";
+        readAloudButton.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud('उत्पादनाम');
+        });
+        productNameInput.parentNode.appendChild(readAloudButton);
+
+        countLabel.innerText = "गणना:";
+        var readAloud2Button = document.createElement('button');
+        readAloud2Button.innerText = "Read Aloud";
+        readAloud2Button.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud2('गणना');
+        });
+        countInput.parentNode.appendChild(readAloud2Button);
+
+        priceLabel.innerText = "किंमत:";
+        var readAloud3Button = document.createElement('button');
+        readAloud3Button.innerText = "Read Aloud";
+        readAloud3Button.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud3('किंमत');
+        });
+        priceInput.parentNode.appendChild(readAloud3Button);
+
+        imageLabel.innerText = "छायाचित्र:";
+        var readAloud4Button = document.createElement('button');
+        readAloud4Button.innerText = "Read Aloud";
+        readAloud4Button.addEventListener('click', function(event) {
+          event.preventDefault();
+          readAloud4('छायाचित्र');
+        });
+        imageInput.parentNode.appendChild(readAloud4Button);
+      }
+    }
+
+    
+
+    function readAloud(text) {
+      event.stopPropagation();
+      var speech = new SpeechSynthesisUtterance();
+      speech.text = text;
+      speech.lang = "hi-IN"; // Set the language code for Hindi (you can use "ta-IN" for Tamil, "mr-IN" for Marathi, etc.)
+
+      speechSynthesis.speak(speech);
+    }
+    
+    function readAloud1(text) {
+      event.stopPropagation();
+      var speech = new SpeechSynthesisUtterance();
+      speech.text = text;
+      speech.lang = "hi-IN"; // Set the language code for Hindi (you can use "ta-IN" for Tamil, "mr-IN" for Marathi, etc.)
+
+      speechSynthesis.speak(speech);
+    }
+
+    function readAloud1(text) {
+      event.stopPropagation();
+      var speech = new SpeechSynthesisUtterance();
+      speech.text = text;
+      speech.lang = "hi-IN"; // Set the language code for Hindi (you can use "ta-IN" for Tamil, "mr-IN" for Marathi, etc.)
+
+      speechSynthesis.speak(speech);
+    }
+
+    function readAloud2(text) {
+      event.stopPropagation();
+      var speech = new SpeechSynthesisUtterance();
+      speech.text = text;
+      speech.lang = "hi-IN"; // Set the language code for Hindi (you can use "ta-IN" for Tamil, "mr-IN" for Marathi, etc.)
+
+      speechSynthesis.speak(speech);
+    }
+
+    function readAloud3(text) {
+      event.stopPropagation();
+      var speech = new SpeechSynthesisUtterance();
+      speech.text = text;
+      speech.lang = "hi-IN"; // Set the language code for Hindi (you can use "ta-IN" for Tamil, "mr-IN" for Marathi, etc.)
+
+      speechSynthesis.speak(speech);
+    }
+
+    function readAloud4(text) {
+      event.stopPropagation();
+      var speech = new SpeechSynthesisUtterance();
+      speech.text = text;
+      speech.lang = "hi-IN"; // Set the language code for Hindi (you can use "ta-IN" for Tamil, "mr-IN" for Marathi, etc.)
+
+      speechSynthesis.speak(speech);
+
+    }
+
+    
+  </script>
+
+  
+  
+  <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary" class>Back</a>
+{% endblock content %}

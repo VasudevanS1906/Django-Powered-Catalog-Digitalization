@@ -1,0 +1,155 @@
+{% extends "base6.html" %}
+
+{% block content %}
+  <h1>Combination of all 3 Mode</h1>
+  <hr>
+  <h2>Select Language</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+      <label for="language">Language:</label>
+      <select name="language" id="language" onchange="changeLanguage()">
+        <option value="hindi">Select</option>
+        <option value="tamil">Tamil</option>
+        <option value="marathi">Marathi</option>
+        <option value="hindi">Hindi</option>
+
+      </select>
+
+    </div>
+
+    <div id="sku_id_section">
+      <label for="id_sku_id" id="sku_id_label">SKU ID:</label>
+      <input type="text" id="id_sku_id" name="sku_id">
+    </div>
+    <div>
+        <label for="id_product_name" id="product_name_label">Product Name:</label>
+        <input type="text" id="id_product_name" name="product_name">
+
+    </div>
+    <div>
+      <label for="id_count">Count:</label>
+      <input type="text" id="id_count" name="count">
+      <input type="file" id="imageInput2">
+      <button type="button" id="ocrButton2">OCR</button>
+    </div>
+    <div>
+      <label for="id_price">Price:</label>
+      <input type="number" id="id_price" name="price" step="0.01">
+      <button type="button" onclick="readAloud2('Price', document.getElementById('id_price').value)">Read Aloud</button>
+    </div>
+    <div>
+      <label for="id_image">Image:</label>
+      <input type="file" id="id_image" name="image" accept="image/*">
+      
+    </div>
+    <button type="submit">Submit</button>
+    </form>
+    <script>
+      function changeLanguage() {
+        var language = document.getElementById('language').value;
+        var skuIdLabel = document.getElementById('sku_id_label');
+        var skuIdInput = document.getElementById('id_sku_id');
+        var productNameLabel = document.getElementById('product_name_label');
+        var productNameInput = document.getElementById('id_product_name');
+
+
+        if (language === "hindi") {
+          skuIdLabel.innerText = "एसकेयू आईडी:";
+          
+
+          productNameLabel.innerText = "उत्पाद का नाम:";
+          var readAloud1Button = document.createElement('button');
+          readAloud1Button.innerText = "Read Aloud";
+          readAloud1Button.addEventListener('click', function(event) {
+            event.preventDefault();
+            readAloud1('उत्पाद का नाम');
+          });
+          productNameInput.parentNode.appendChild(readAloud1Button);
+
+          } else if (language === "tamil") {
+
+
+          skuIdLabel.innerText = "எஸ்.கே.யு ஐடி:";
+          
+
+          productNameLabel.innerText = "பொருள் பெயர்:";
+          var readAloudButton = document.createElement('button');
+          readAloudButton.innerText = "Read Aloud";
+          readAloudButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            readAloud('பொருள் பெயர்');
+          });
+          productNameInput.parentNode.appendChild(readAloudButton);
+
+          } else if (language === "marathi") {
+         
+
+          skuIdLabel.innerText = "एसकेयू आयडी:";
+          
+
+          productNameLabel.innerText = "उत्पादनाम:";
+          var readAloudButton = document.createElement('button');
+          readAloudButton.innerText = "Read Aloud";
+          readAloudButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            readAloud('उत्पादनाम');
+          });
+          productNameInput.parentNode.appendChild(readAloudButton);
+
+          }
+        }
+          function readAloud(text) {
+            event.stopPropagation();
+            var speech = new SpeechSynthesisUtterance();
+            speech.text = text;
+            speech.lang = "hi-IN"; // Set the language code for Hindi (you can use "ta-IN" for Tamil, "mr-IN" for Marathi, etc.)
+
+            speechSynthesis.speak(speech);
+          }
+
+          function readAloud1(text) {
+            event.stopPropagation();
+            var speech = new SpeechSynthesisUtterance();
+            speech.text = text;
+            speech.lang = "hi-IN"; // Set the language code for Hindi (you can use "ta-IN" for Tamil, "mr-IN" for Marathi, etc.)
+
+            speechSynthesis.speak(speech);
+          }
+      </script>
+    <script>
+        const ocrButton2 = document.querySelector('#ocrButton2');
+        const imageInput2 = document.querySelector('#imageInput2');
+        const countInput = document.querySelector('#id_count');
+
+
+        ocrButton2.addEventListener('click', async () => {
+          const file = imageInput2.files[0];
+          const formData = new FormData();
+          formData.append('image', file);
+
+          try {
+            const response = await fetch('/perform_ocr', {
+              method: 'POST',
+              body: formData
+            });
+            if (response.ok) {
+              const data = await response.text();
+              countInput.value = data; // Populate the recognized text into the SKU ID input field
+            } else {
+              console.error('Failed to perform OCR');
+            }
+          } catch (error) {
+            console.error('Error performing OCR:', error);
+          }
+        });
+    </script>
+    <script>
+        function readAloud2(label, value) {
+            const msg = new SpeechSynthesisUtterance();
+            msg.text = label + ": " + value;
+            window.speechSynthesis.speak(msg);
+        }
+    </script>
+  <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary" class>Back </a>
+{% endblock content %}

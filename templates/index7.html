@@ -1,0 +1,31 @@
+{% extends "base7.html" %}
+
+{% block content %}
+  <h1>View Catalog Mode</h1>
+  <hr>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">SKU_Id</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Count</th>
+        <th scope="col">Image</th>
+      </tr>
+    </thead>
+            {% for emp in emps %}
+    <tbody>
+      <tr>
+        <th scope="row">{{emp.id}}</th>
+        <td>{{emp.sku_id}}</td>
+        <td>{{emp.product_name}}</td>
+        <td>{{emp.price}}</td>
+        <td>{{emp.count}}</td>
+        <td>{{emp.image}}</td>
+      </tr>
+    </tbody>
+            {% endfor %}
+  </table>
+  <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary" class>Back</a>
+{% endblock content %}
